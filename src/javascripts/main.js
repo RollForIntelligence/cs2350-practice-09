@@ -33,3 +33,25 @@ function displayMovie(movie) {
     </div>
     `
 }
+
+function searchMovies(event) {
+    event.preventDefault()
+
+    let input = document.querySelector('[type="search"]').value || ""
+    let count = 0
+    for (let m of movies) {
+        if (m.title.toUpperCase().indexOf(input.toUpperCase()) == -1) {
+            document.querySelector(`#m${m.id}`).classList.add('d-none')
+        }
+        else {
+            document.querySelector(`#m${m.id}`).classList.remove('d-none')
+            count++
+        }
+    }
+
+    featured_movie.innerHTML = count == 0 ? 'Nothing was found' : ''
+}
+
+document.querySelector("button").onclick = searchMovies
+document.querySelector('[type="search"]').onsearch = searchMovies
+document.querySelector("form").onsubmit = searchMovies
